@@ -1,7 +1,9 @@
 pub mod card_functions {
+    use rand::seq::SliceRandom;
+    use rand::thread_rng;
 
     #[derive(Debug, Clone)]
-    pub enum Suit {
+    enum Suit {
         Hearts(String),
         Diamonds(String),
         Clubs(String),
@@ -10,7 +12,7 @@ pub mod card_functions {
     }
 
     #[derive(Debug, Clone)]
-    pub enum Name {
+    enum Name {
         Two,
         Three,
         Four,
@@ -36,6 +38,11 @@ pub mod card_functions {
 
     fn card_factory(name: Name, suit: Suit, value: i32) -> Card {
         Card {name, suit, value}
+    }
+
+    pub fn shuffle_deck(slice: &mut [Card]) {
+        let mut rng = thread_rng();
+        slice.shuffle(&mut rng);
     }
 
     pub fn blackjack_deck() -> [Card; 52] {

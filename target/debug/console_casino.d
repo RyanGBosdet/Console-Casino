@@ -1,1 +1,1 @@
-D:\Documents\rust-projects\Console-Casino\target\debug\console_casino.exe: D:\Documents\rust-projects\Console-Casino\src\cards.rs D:\Documents\rust-projects\Console-Casino\src\main.rs
+C:\Users\chick\Documents\rustProjects\Console-Casino\target\debug\console_casino.exe: C:\Users\chick\Documents\rustProjects\Console-Casino\src\cards.rs C:\Users\chick\Documents\rustProjects\Console-Casino\src\main.rs
