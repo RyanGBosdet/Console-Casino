@@ -1,6 +1,7 @@
 pub mod card_functions {
     use rand::seq::SliceRandom;
     use rand::thread_rng;
+    use std::fmt;
 
     #[derive(Debug, Clone)]
     enum Suit {
@@ -9,6 +10,20 @@ pub mod card_functions {
         Clubs(String),
         Spades(String),
         None
+    }
+
+    impl Suit {
+        pub fn unwrap(&self) -> String {
+            use Suit::*;
+
+            match self {
+                Hearts(x) => x.to_string(),
+                Diamonds(x) => x.to_string(),
+                Clubs(x) => x.to_string(),
+                Spades(x) => x.to_string(),
+                None => String::from("No suit found")
+            }
+        }
     }
 
     #[derive(Debug, Clone)]
@@ -36,6 +51,31 @@ pub mod card_functions {
         value: i32
     }
 
+    impl fmt::Display for Card {
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+            use Name::*;
+
+            let suit_ref = &self.suit;
+            
+            match self.name {
+                Two => write!(f, "2{}", suit_ref.unwrap()),
+                Three => write!(f, "3{}", suit_ref.unwrap()),
+                Four => write!(f, "4{}", suit_ref.unwrap()),
+                Five => write!(f, "5{}", suit_ref.unwrap()),
+                Six => write!(f, "6{}", suit_ref.unwrap()),
+                Seven => write!(f, "7{}", suit_ref.unwrap()),
+                Eight => write!(f, "8{}", suit_ref.unwrap()),
+                Nine => write!(f, "9{}", suit_ref.unwrap()),
+                Ten => write!(f, "10{}", suit_ref.unwrap()),
+                Jack => write!(f, "J{}", suit_ref.unwrap()),
+                Queen => write!(f, "Q{}", suit_ref.unwrap()),
+                King => write!(f, "K{}", suit_ref.unwrap()),
+                Ace => write!(f, "A{}", suit_ref.unwrap()),
+                Empty => write!(f, "Empty Card"),
+            }
+        }
+    }
+
     fn card_factory(name: Name, suit: Suit, value: i32) -> Card {
         Card {name, suit, value}
     }
@@ -45,7 +85,7 @@ pub mod card_functions {
         slice.shuffle(&mut rng);
     }
 
-    pub fn blackjack_deck() -> [Card; 52] {
+    pub fn generate_deck(game: &str) -> [Card; 52] {
         use Name::*;
         use Suit::*;
 
@@ -56,6 +96,7 @@ pub mod card_functions {
         };
 
         let mut card_array: [Card; 52] = [EMPTY_CARD; 52];
+        let card_ref = &mut card_array;
 
         let suits = [
             Hearts(String::from("♥")), 
@@ -79,6 +120,20 @@ pub mod card_functions {
             King,
             Ace,
         ];
+        
+        match game {
+            "blackjack" => {
+                    blackjack_deck(card_ref, suits, names);
+                    shuffle_deck(card_ref);
+                    card_array
+                },
+            _ => card_array
+        }
+    }
+
+
+    fn blackjack_deck(card_array: &mut [Card; 52], suits: [Suit; 4], names: [Name; 13]) {
+        
 
         let values = [
             2,
@@ -104,8 +159,6 @@ pub mod card_functions {
                 index += 1;
             }
         }
-
-        card_array
 
     }
 
