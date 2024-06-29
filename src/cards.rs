@@ -123,33 +123,26 @@ pub mod card_functions {
         
         match game {
             "blackjack" => {
-                    blackjack_deck(card_ref, suits, names);
+                    build_deck(card_ref, suits, names, [2,3,4,5,6,7,8,9,10,10,10,10,11]);
                     shuffle_deck(card_ref);
                     card_array
                 },
+            "baccarat" => {
+                build_deck(card_ref, suits, names, [2,3,4,5,6,7,8,9,0,0,0,0,1]);
+                shuffle_deck(card_ref);
+                card_array
+                },
+            "poker" => {
+                build_deck(card_ref, suits, names, [2,3,4,5,6,7,8,9,10,11,12,13,14]);
+                shuffle_deck(card_ref);
+                card_array
+            },
             _ => card_array
         }
     }
 
 
-    fn blackjack_deck(card_array: &mut [Card; 52], suits: [Suit; 4], names: [Name; 13]) {
-        
-
-        let values = [
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            10,
-            10,
-            10,
-            11
-        ];
+    fn build_deck(card_array: &mut [Card; 52], suits: [Suit; 4], names: [Name; 13], values: [i32; 13]) { 
 
         let mut index = 0;
 
@@ -161,5 +154,6 @@ pub mod card_functions {
         }
 
     }
+    
 
 }
