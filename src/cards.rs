@@ -2,8 +2,9 @@ pub mod card_functions {
     use rand::seq::SliceRandom;
     use rand::thread_rng;
     use std::fmt;
+    use colored::Colorize;
 
-    #[derive(Debug, Clone)]
+    #[derive(Debug, Clone, PartialEq, Eq)]
     enum Suit {
         Hearts(String),
         Diamonds(String),
@@ -54,24 +55,49 @@ pub mod card_functions {
     impl fmt::Display for Card {
         fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
             use Name::*;
+            use Suit::*;
 
             let suit_ref = &self.suit;
+            let h = Hearts(String::from("♥"));
+            let d = Diamonds(String::from("♦"));
+
+            if self.suit != h && self.suit != d {
             
-            match self.name {
-                Two => write!(f, "2{}", suit_ref.unwrap()),
-                Three => write!(f, "3{}", suit_ref.unwrap()),
-                Four => write!(f, "4{}", suit_ref.unwrap()),
-                Five => write!(f, "5{}", suit_ref.unwrap()),
-                Six => write!(f, "6{}", suit_ref.unwrap()),
-                Seven => write!(f, "7{}", suit_ref.unwrap()),
-                Eight => write!(f, "8{}", suit_ref.unwrap()),
-                Nine => write!(f, "9{}", suit_ref.unwrap()),
-                Ten => write!(f, "10{}", suit_ref.unwrap()),
-                Jack => write!(f, "J{}", suit_ref.unwrap()),
-                Queen => write!(f, "Q{}", suit_ref.unwrap()),
-                King => write!(f, "K{}", suit_ref.unwrap()),
-                Ace => write!(f, "A{}", suit_ref.unwrap()),
-                Empty => write!(f, "Empty Card"),
+                match self.name {
+                    Two => write!(f, "2{}", suit_ref.unwrap()),
+                    Three => write!(f, "3{}", suit_ref.unwrap()),
+                    Four => write!(f, "4{}", suit_ref.unwrap()),
+                    Five => write!(f, "5{}", suit_ref.unwrap()),
+                    Six => write!(f, "6{}", suit_ref.unwrap()),
+                    Seven => write!(f, "7{}", suit_ref.unwrap()),
+                    Eight => write!(f, "8{}", suit_ref.unwrap()),
+                    Nine => write!(f, "9{}", suit_ref.unwrap()),
+                    Ten => write!(f, "10{}", suit_ref.unwrap()),
+                    Jack => write!(f, "J{}", suit_ref.unwrap()),
+                    Queen => write!(f, "Q{}", suit_ref.unwrap()),
+                    King => write!(f, "K{}", suit_ref.unwrap()),
+                    Ace => write!(f, "A{}", suit_ref.unwrap()),
+                    Empty => write!(f, "Empty Card"),
+                }
+
+            } else {
+
+                match self.name {
+                    Two => write!(f, "{}{}", "2".red(), suit_ref.unwrap().red()),
+                    Three => write!(f, "{}{}", "3".red(), suit_ref.unwrap().red()),
+                    Four => write!(f, "{}{}", "4".red(), suit_ref.unwrap().red()),
+                    Five => write!(f, "{}{}", "5".red(), suit_ref.unwrap().red()),
+                    Six => write!(f, "{}{}", "6".red(), suit_ref.unwrap().red()),
+                    Seven => write!(f, "{}{}", "7".red(), suit_ref.unwrap().red()),
+                    Eight => write!(f, "{}{}", "8".red(), suit_ref.unwrap().red()),
+                    Nine => write!(f, "{}{}", "9".red(), suit_ref.unwrap().red()),
+                    Ten => write!(f, "{}{}", "10".red(), suit_ref.unwrap().red()),
+                    Jack => write!(f, "{}{}", "J".red(), suit_ref.unwrap().red()),
+                    Queen => write!(f, "{}{}", "Q".red(), suit_ref.unwrap().red()),
+                    King => write!(f, "{}{}", "K".red(), suit_ref.unwrap().red()),
+                    Ace => write!(f, "{}{}", "A".red(), suit_ref.unwrap().red()),
+                    Empty => write!(f, "Empty Card"),
+                }
             }
         }
     }
@@ -128,15 +154,15 @@ pub mod card_functions {
                     card_array
                 },
             "baccarat" => {
-                build_deck(card_ref, suits, names, [2,3,4,5,6,7,8,9,0,0,0,0,1]);
-                shuffle_deck(card_ref);
-                card_array
+                    build_deck(card_ref, suits, names, [2,3,4,5,6,7,8,9,0,0,0,0,1]);
+                    shuffle_deck(card_ref);
+                    card_array
                 },
             "poker" => {
-                build_deck(card_ref, suits, names, [2,3,4,5,6,7,8,9,10,11,12,13,14]);
-                shuffle_deck(card_ref);
-                card_array
-            },
+                    build_deck(card_ref, suits, names, [2,3,4,5,6,7,8,9,10,11,12,13,14]);
+                    shuffle_deck(card_ref);
+                    card_array
+                },
             _ => card_array
         }
     }
